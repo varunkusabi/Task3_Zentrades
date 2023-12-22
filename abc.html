@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Dashboard</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #logo {
+      width: 100px; 
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    /* h1 {
+      margin-bottom: 10px;
+      color: green;
+    } */
+    h1 {
+    margin-bottom: 10px;
+    font-size: 24px; /* Adjust the font size as needed */
+    background: linear-gradient(to right, green 57%, white 50%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+
+    form {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+    #loginBtn {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px; 
+      width: 300px;
+    }
+
+    #forgotPassword {
+      font-size: small;
+      text-decoration: none;
+      color: gray;
+      display: block;
+      margin-top: 10px;
+    }
+
+    #passwordError {
+      color: red;
+      font-size: small;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <img src="company_logo.png" alt="Company Logo" id="logo">
+  <h1>SMARTSERV</h1>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Enter your email" onchange="validateEmail()">
+    <input type="password" id="password" placeholder="Enter your password" oninput="validatePassword()">
+    <div id="passwordError"></div>
+    <button type="button" id="loginBtn" onclick="login()">Login</button>
+    <a href="#" id="forgotPassword">Forgot my password</a>
+  </form>
+
+  <script>
+    function validateEmail() {
+      const emailInput = document.getElementById('username');
+      const isValid = emailInput.value.includes('@') && emailInput.value.includes('.');
+
+      if (!isValid) {
+        alert('Please enter a valid email address');
+        emailInput.value = '';
+      }
+    }
+
+    function validatePassword() {
+      const passwordInput = document.getElementById('password');
+      const passwordError = document.getElementById('passwordError');
+      const hasCapitalLetter = /[A-Z]/.test(passwordInput.value);
+      const hasDigit = /\d/.test(passwordInput.value);
+      const hasSpecialChar = /[^A-Za-z0-9@]/.test(passwordInput.value);
+
+      if (hasCapitalLetter && hasDigit && !hasSpecialChar) {
+        passwordError.textContent = ''; // Clear the error message
+      } else {
+        let errorMessage = 'Password must have at least:';
+        if (!hasCapitalLetter) errorMessage += ' one capital letter,';
+        if (!hasDigit) errorMessage += ' one digit,';
+        if (hasSpecialChar) errorMessage += ' and no special characters other than "@".';
+        passwordError.textContent = errorMessage;
+      }
+    }
+
+    function login() {
+      const passwordInput = document.getElementById('password');
+      const passwordError = document.getElementById('passwordError');
+      const hasCapitalLetter = /[A-Z]/.test(passwordInput.value);
+      const hasDigit = /\d/.test(passwordInput.value);
+      const hasSpecialChar = /[^A-Za-z0-9@]/.test(passwordInput.value);
+
+      if (hasCapitalLetter && hasDigit && !hasSpecialChar) {
+        alert('Login successful!');
+        passwordError.textContent = ''; 
+      } else {
+        let errorMessage = 'Password must have at least:';
+        if (!hasCapitalLetter) errorMessage += ' one capital letter,';
+        if (!hasDigit) errorMessage += ' one digit,';
+        if (hasSpecialChar) errorMessage += ' and no special characters other than "@".';
+        passwordError.textContent = errorMessage;
+      }
+    }
+  </script>
+</body>
+</html>
